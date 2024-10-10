@@ -1,6 +1,18 @@
 {
   "Projects": [
     {
+      "name": "CPU Scheduler",
+      "image": "/proj4Pic2.png",
+      "imageArr": [
+        "/proj4Pic1.png",
+        "/proj4Pic2.png",
+        "/proj4Pic3.png"
+      ],
+      "link": "https://github.com/MirzaHB/CPU-Scheduler",
+      "skills": "C, Python",
+      "description": "In this assignment, I developed and explored several key CPU scheduling algorithms, including First-Come-First-Served (FCFS), Shortest Job First (SJF), Priority Scheduling, Round Robin (RR), and Shortest Remaining Time (SRT) with exponential averaging. Each of these algorithms approaches process scheduling with a different strategy, which allowed me to compare their impact on key performance metrics such as average waiting time, turnaround time, and response time. I ran simulations using a dataset of processes with varying arrival times and CPU burst lengths, generating graphs to visualize how different algorithms perform under various conditions, particularly as I adjusted parameters like time quantum in Round Robin. This exploration deepened my understanding of the trade-offs inherent in CPU scheduling, such as fairness versus efficiency and the impact of preemptive versus non-preemptive strategies. One of the most fascinating parts of this assignment was implementing the SRT algorithm with exponential averaging, which uses historical burst times to predict future bursts. This predictive approach adds intelligence to the scheduling process by estimating how long each process will run based on its past behavior. Through my simulations, I learned that exponential averaging, controlled by the α (alpha) parameter, allows the system to dynamically adjust to processes with changing CPU needs. A lower α value smooths out fluctuations, while a higher α makes the scheduler more responsive to recent changes. This method significantly improved the system’s ability to anticipate which processes should be prioritized, balancing turnaround time and preventing process starvation. Ultimately, the combination of SRT with exponential averaging showcased the power of predictive models in refining CPU scheduling decisions, making the system smarter and more adaptable to diverse workloads."
+    },
+    {
       "name": "Interactive Location Finder",
       "image": "/proj1Pic2.png",
       "imageArr": [

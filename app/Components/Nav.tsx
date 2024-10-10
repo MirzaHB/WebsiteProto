@@ -6,14 +6,13 @@ export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: "About Me", to: "/About" },
+    { name: "About Me", to: "/" },
     { name: "Projects", to: "/Projects" },
     { name: "Experience", to: "/Experience" },
   ];
 
   return (
     <nav className="mt-4">
-      {/* desktop Nav bar */}
       <div className="hidden md:flex justify-center">
         <div className="bg-red-100 rounded-full p-4 shadow-md w-3/4">
           <div className="flex justify-around">
@@ -34,9 +33,7 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* phone Nav bar */}
       <div className="md:hidden">
-        {/* hamburger menu button */}
         {!isOpen && (
           <div className="flex justify-between items-center px-4">
             <button
@@ -48,7 +45,6 @@ export default function Nav() {
             </button>
           </div>
         )}
-        {/* phone Menu */}
         {isOpen && (
           <div
             className="fixed inset-0 bg-red-100 flex flex-col items-center justify-center animate-slide-down z-50"
