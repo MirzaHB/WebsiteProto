@@ -26,24 +26,27 @@ export default function About() {
   const [copied, setCopied] = useState(false);
 
   return (
-    <div className="flex flex-col items-center mt-8">
+    <div className="flex flex-col items-center mt-8 px-4">
       <div className="flex flex-col md:flex-row items-center md:items-stretch md:justify-center w-full max-w-5xl">
         <div className="w-full md:w-2/5 flex justify-center md:justify-end p-4">
           <img
             src={data.picturePath}
             alt="Profile pic of me, Hassan"
-            className="rounded-full object-cover w-64 h-64 md:w-80 md:h-80 border-4 border-red-100"
+            className="rounded-full object-cover w-48 h-48 md:w-80 md:h-80 border-4 border-red-100"
           />
         </div>
 
         <div className="hidden md:block w-px bg-red-100 mx-4" />
 
-        <div className="w-full md:w-3/5 flex flex-col justify-between p-2 relative">
-          <div>
-            <h1 className="text-6xl font-bold mb-4 text-blue-600">
+        <div className="w-full md:w-3/5 flex flex-col justify-between p-2 relative items-center md:items-start">
+          <div className="flex flex-col items-center md:items-start">
+            <h1 className="text-3xl md:text-6xl font-bold mb-4 text-blue-600 text-center md:text-left">
               Hello, I am...
             </h1>
-            <div className="text-4xl font-bold h-[80px] overflow-hidden">
+            <div
+              className="text-2xl md:text-4xl font-bold text-center md:text-left break-words max-w-full overflow-hidden"
+              style={{ height: "6rem" }}
+            >
               <Typewriter
                 options={{
                   autoStart: true,
@@ -82,7 +85,7 @@ export default function About() {
               text={email}
               onCopy={() => {
                 setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
+                setTimeout(() => setCopied(false), 1500);
               }}
             >
               <button
@@ -95,7 +98,7 @@ export default function About() {
           </div>
 
           {copied && (
-            <div className="absolute bottom-16 md:bottom-4 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded">
+            <div className="absolute bottom-16 md:bottom-4 left-1/2 transform -translate-x-1/2 bg-red-100 border border-red-100 text-green-700 px-4 py-2 rounded">
               Email copied to clipboard!
             </div>
           )}
