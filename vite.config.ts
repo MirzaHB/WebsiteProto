@@ -15,6 +15,7 @@ export default defineConfig({
     }),
     remix({
       basename: "/WebsiteProto/",
+      ssr: false,
     }),
     tsconfigPaths(),
   ],
