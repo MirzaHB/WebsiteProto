@@ -9,6 +9,7 @@ export default function Nav() {
     { name: "About Me", to: "/" },
     { name: "Projects", to: "/Projects" },
     { name: "Experience", to: "/Experience" },
+    { name: "Blogs", to: "/blogs" },
   ];
 
   return (

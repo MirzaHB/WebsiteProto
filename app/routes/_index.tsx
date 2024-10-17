@@ -73,7 +73,7 @@ export default function About() {
             </a>
 
             <a
-              href="https://linkedin.com/in/hassanbaig"
+              href="https://www.linkedin.com/in/mirza-hassan-baig-a33780229/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-800 hover:text-blue-600"
