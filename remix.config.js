@@ -4,7 +4,7 @@ const { mdx } = require("@remix-run/mdx");
 module.exports = mdx({
   appDirectory: "app",
   serverBuildPath: "build/index.js",
-  publicPath: "/WebsiteProto/",
+  publicPath: "/build/",
   ignoredRouteFiles: ["**/.*", "**/*.css", "**/*.test.{js,jsx,ts,tsx}"],
 
   // Add .mdx to the list of app file extensions
