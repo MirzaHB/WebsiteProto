@@ -1,0 +1,55 @@
+---
+title: "Why care about variable sizes?"
+date: "2024-10-7"
+description: "Exploring why the sizes of variables maatter and their impact."
+---
+
+import { useMDXComponents } from "@mdx-js/react";
+
+{frontmatter.date}
+
+# {frontmatter.title}
+
+Remember the first time you had to code with a low level language? When I first started programming with C, I absolutely hated it. I could no longer just declare variables without having to specify their sizes, and worst of all I could no longer have arrays that could change sizes during run time! Going from programming to python to C caused me an immense amount of frustration and I absolutely hated it. However, as time has gone by and my learning has deepened, I have realized that there really is a purpose behind having to do these primitive tasks, and they dont exist to only cause headaches lol.
+
+<div style={{ display: "flex", justifyContent: "center" }}>
+  <img src="/bugs.png" alt="Description" style={{ width: "350px" }} />
+</div>
+
+## All in the bits and bytes
+
+Before diving deeper into the Before diving deeper into the frustration you might have felt when programming with lower-level languages like Rust or C, let’s first talk about bits and bytes—the foundation of everything in programming.
+
+Every variable you declare in your program takes up space in memory, and that space is measured in **bits** and **bytes**. A bit is the smallest unit of data in a computer, represented by a 0 or a 1. When you group 8 bits together, you get a byte. Each byte can hold values from 0 to 255. So, for example, the number "42" might be stored as a group of 8 bits in memory.
+
+## Why size matters
+
+In systems programming languages, the size of your variables shouldn't just be a minor detail thats you have to specify for syntax purposes. The size of your varibales is something that you must think about because each data type takes up a different amount of space so you're really just telling the computer how much space you will use for a variable. This gives you full control over how much memory your program uses, so you have a lot of power, but you must be careful with how you use it.
+
+Let’s say you’re working with people’s ages in a program. If you choose an **8-bit unsigned** integer to represent age, you can store values between **0 and 255**. That makes sense, no one’s living past 255 years, right? But imagine you use a 64-bit integer instead. Now you’re wasting 7 bytes of memory for every single age you store, which doesn’t seem like a big deal until you’re dealing with thousands of people. Suddenly, all those wasted bytes start adding up!
+
+## Efficiency of systems programming languages
+
+Having to specify the exact size of your datatypes is exactly what makes systems programming languages more efficient than interpreted languages like python. For instance, in Rust or C, you can’t just add different types together without explicitly converting them. Trying to add an 8-bit integer to a 16-bit integer? The compiler won’t allow it unless you convert one to match the other. This ensures that you know exactly how much memory is being used, preventing any sneaky bugs.
+
+These languages are designed to make you think carefully about memory usage. They don’t allow for the casual mixing of types like floating-point numbers and integers without making you stop and consider how the program will handle it. It’s like having guardrails that keep your code efficient and predictable(very unlike Js type conversion system which is apparently a "feature" 😂).
+
+## The problem with dynamically typed languages
+
+Now, let’s look at interpreted languages like JavaScript or Python. These languages don’t ask you to specify data types, they just ✨*guess*✨. While that might seem convenient, it often leads to memory inefficiency. The interpreter has to add extra info to each variable to keep track of what type it thinks it is, which means you’re using more memory.
+
+This might not seem like a big deal—until you’re storing the ages of thousands of people. In JavaScript, not only are you using more memory for each person’s age, but the interpreter is also throwing in extra “type information” like a bonus that nobody asked for. So, suddenly, you’re using way more memory than you realized. And to make matters worse, everytime you do operations with these data types, the interpreter has to look at the type information first and then decide if it wants to convert data types in the process(lookin at u js 😒).
+
+A decent dynamically typed language can catch errors such as trying to add strings with numbers like python does. However, some languages like javascript can perform operations with different datatypes and then magically do a type conversion in the process to make it work in a way you would never expect, this is a special "_feature_" of javascript.
+
+So at the end of the day, not having to specify the datatypes in dynamically typed languages isnt just ✨magic✨, its just extra work that the interpreter has to do behind the scenes. **Slowing Everything down** in the process.
+
+## Conclusion: Know Your Bits, Save Your Bytes
+
+So, why does the size of your variables matter? It all boils down to control and efficiency. In systems languages like Rust and C, you get to be in charge. You specify exactly how much memory you want to use, and in return the compiler can create highly efficient machine code. This means that your code runs faster and more efficiently. No wasted bytes, no surprises.
+
+In dynamic languages, the interpreter tries to take care of things for you, but that convenience comes at the cost of memory and processing speed. And when you’re dealing with large amounts of data or performance-critical applications, that cost can be huge.
+
+By understanding the size of your variables and how memory is used, you can write programs that are not only faster but also far more efficient. Start with small and simple changes like using a uint8_t for an age or height variable and go from there. Eventually these better coding practices will become natural to you and you wont have to put too much thought into them.
+
+So next time you’re coding, remember, every byte counts!<hr />
