@@ -109,7 +109,7 @@ export default function About() {
 
       <div className="w-full max-w-5xl p-4 mt-8">
         <h2 className="text-2xl font-bold mb-4">About Me</h2>
-        <p className="text-lg text-gray-700">{data.aboutMe}</p>
+        <p className="text-xl text-gray-700">{data.aboutMe}</p>
       </div>
     </div>
   );

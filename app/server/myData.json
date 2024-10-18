@@ -1,6 +1,40 @@
 {
   "Projects": [
     {
+      "name": "Page Replacement Algos",
+      "image": "/PgRplcAlgos.png",
+      "imageArr": [
+        "/PgRplcAlgos.png",
+        "/nVals.png",
+        "/mVals.png"
+      ],
+      "skills": "C, Python",
+      "link": "https://github.com/MirzaHB/Page-Replacement-Algos",
+      "description": " developed simulators for four page replacement algorithms: Optimal, FIFO, LRU, and Second Chance (Clock), using C to evaluate memory management efficiency through page fault and write-back rates across different memory conditions. The Second Chance (Clock) algorithm, commonly used in Linux systems, was a central focus. I explored how the number of reference bits (n) and number of references (m) before shifting the reference register impacted performance. Tuning the m value was crucial: a low m failed to capture enough history, leading to more frequent page faults, while a high m retained too much irrelevant data, causing inefficiency. I used Python to generate graphs that visualized the performance of each algorithm, offering clear insights into how different configurations affected memory efficiency."
+    },
+    {
+      "name": "LED Controller",
+      "image": "/EmbeddedSystems.png",
+      "imageArr": [
+        "/EmbeddedSystems.png"
+      ],
+      "link": "https://github.com/MirzaHB/LED-Controller",
+      "skills": "C, Python, Embedded systems",
+      "description": "This project demonstrates a microcontroller-based LED control system designed for my Embedded Systems course at the University of Calgary. Using the PIC24F16K101 microcontroller and the MPLAB IDE, I developed a control app that adjusts LED brightness through Pulse Width Modulation (PWM) signals. The brightness is controlled via push buttons and a potentiometer, allowing real-time intensity adjustments between 0% and 100%. I utilized UART and Timer peripherals to capture voltages and regulate LED delays, ensuring precise control. A Python script was integrated to capture and graph the PWM intensity levels and voltage output over time, presenting the results visually. The system was optimized for power efficiency using interrupt-based button debouncing and power-saving modes such as clock switching and idle modes. This project reflects my ability to work with low-level hardware and real-time data, showcasing my skills in embedded systems and real-time software development."
+    },
+    {
+      "name": "Potentiometer Voltage Capture",
+      "image": "/EmbeddedSystems.png",
+      "imageArr": [
+        "/EmbeddedSystems.png",
+        "/ADCBufferVsTime.png",
+        "/ADCVoltageVsTime.png"
+      ],
+      "link": "https://github.com/MirzaHB/PotentiometerVoltageCapture",
+      "skills": "C, Python, Embedded systems",
+      "description": "In this project, I developed a microcontroller-based LED control system using the PIC24F16K101 microcontroller and the MPLAB IDE. The system utilized UART and Timer peripherals to capture voltages and regulate LED delays, while Pulse Width Modulation (PWM) signals controlled the brightness of the LED based on potentiometer and push button inputs. This setup enabled real-time adjustments to the LED’s brightness, ensuring smooth transitions between intensity levels. I integrated a Python script to capture, store, and visually graph the PWM intensity levels and voltage output over time, providing a clear representation of the system's performance. To optimize the system, I implemented interrupt-based button debouncing and energy-saving modes through clock switching and idle modes. The project was built using ANSI C for precise low-level hardware control and real-time performance optimization."
+    },
+    {
       "name": "CPU Scheduler",
       "image": "/proj4Pic2.png",
       "imageArr": [
