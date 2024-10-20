@@ -1,4 +1,14 @@
 {
   "aboutMe": "I’m endlessly curious about how things work at their core, and I love figuring out the smallest details that make everything tick. Whether it’s low-level programming or the systems that power modern technology, understanding the why and how behind it all fascinates me. Low-level programming, in particular, has had a massive impact on our world, laying the foundation for operating systems and modern languages, and I find it empowering to know how it all works. But my passion doesn’t stop there—I’m also deeply interested in full-stack development, where I get to build and host web applications that people can interact with. The thrill of creating something from scratch, both on the frontend and backend, and seeing it live on the web keeps me motivated. I also love learning on my own in my free time, constantly experimenting with new technologies and frameworks to push my skills further. Whether it’s building things or figuring out how they work, software engineering allows me to combine creativity and logic, and that’s what keeps me excited about the field every day.",
-  "picturePath": "/me.png"
+  "picturePath": "/me.png",
+  "certificates": [
+    {
+      "awardName": "Azure Fundamentals",
+      "imagePath": "/AzureFundamentals.png"
+    },
+    {
+      "awardName": "Web Developer Bootcamp",
+      "imagePath": "/webdevCert.png"
+    }
+  ]
 }

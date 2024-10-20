@@ -14,13 +14,19 @@ export const loader = async () => {
   return json(jsonData);
 };
 
-type AboutData = {
+interface Certificate {
+  awardName: string;
+  imagePath: string;
+}
+
+interface AboutMeData {
   aboutMe: string;
   picturePath: string;
-};
+  certificates: Certificate[];
+}
 
 export default function About() {
-  const data = useLoaderData<AboutData>();
+  const data = useLoaderData<AboutMeData>();
 
   const email = "hassan.baig@ucalgary.ca";
   const [copied, setCopied] = useState(false);
