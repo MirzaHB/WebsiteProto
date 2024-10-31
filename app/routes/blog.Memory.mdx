@@ -1,0 +1,31 @@
+---
+title: "The Stack, Heap, and the Cache"
+date: "2024-10-7"
+description: "A blog about Stack, Heap and how it effects Cache"
+---
+
+import { useMDXComponents } from "@mdx-js/react";
+
+{frontmatter.date}
+
+# {frontmatter.title}
+
+When we write programs, we rely heavily on how the computer manages memory. Memory isn't just a large storage space, its deivided into different areas, each with a specific role. The three key areas programs frequently work with are the stack, heap, and cache; And each of these serves a unique purpose and can greatly impact the performance of our programs.
+
+Now we will dive into these memory regions and see how they can be key to writing efficient code.
+
+## What is the Stack?
+
+The stack is small but an essential part of the programs execution footprint. The Stack is used to handle function calls, manage local variables, and keep the program data in a predictable and compact structure. The speed/efficiency of the stack comes from its two main characteristics: simplicity and predictability.
+
+### The structure of the Stack
+
+The Stack follows a Last-in-first-out (LIFO) principle, meaning that the last item added to the stack will be the first one to be removed. When a function is called, its added to the stack; and when it completes, its removed. This order keeps the data super compact and contiguous in memory, making it fast to allocate and deallocate space without having to rearrange other data. However the stack does have limitations, the biggest one being that its limited in size. If there are too many nested function calls than a stack overflow can easily occur and cause the program to crash.
+
+This limited size of the stack is because the compiler allocates a fixed size on the memory for the program during compilation time, so we can avoid a system call and its overhead during run time. The size of the stack and its very predictable memory layout allows all the data on the stack to be super compact so that all the data is in a contiguous chunk. This is a big advantage, because not only does this avoid external fragmentation, but it also makes it super cache friendly.
+
+### Cache Friendliness
+
+Modern day CPU's rely heavily on the cache to boost performance. Since the cache is directly on the CPU, its super fast, however, it is also very limited in size because of this.
+
+Even though the cache is small in size, its very powerful. Since the stack stores data contiguously in memory, its very cache friendly and increases the chance of cache hits. Compact data is good for the cache because when a memory address is accessed, the OS grabs and loads not only the recently accessed memory address but also nearby addresses surrounding it into the cache. This concept is called spactial locality, and modern day systems rely heavily on spatial locality to increase efficieny of programs.
