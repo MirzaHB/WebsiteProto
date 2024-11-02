@@ -1,0 +1,109 @@
+---
+title: "The Stack, Heap, and the Cache"
+date: "2024-11-1"
+description: "A blog about Stack, Heap and how it effects Cache"
+---
+
+import { useMDXComponents } from "@mdx-js/react";
+
+{frontmatter.date}
+
+# {frontmatter.title}
+
+When we write programs, we rely heavily on how the computer manages memory. Memory isn't just a large storage space, its deivided into different areas, each with a specific role. The three key areas programs frequently work with are the stack, heap, and cache; And each of these serves a unique purpose and can greatly impact the performance of our programs.
+
+<div style={{ display: "flex", justifyContent: "center" }}>
+  <img src="/processImg.png" alt="Description" style={{ width: "300px" }} />
+</div>
+
+Now we will dive into these memory regions and see how they can be key to writing efficient code.
+
+## What is the Stack?
+
+The stack is small but an essential part of the programs execution footprint. The Stack is used to handle function calls, manage local variables, and keep the program data in a predictable and compact structure. The speed/efficiency of the stack comes from its two main characteristics: simplicity and predictability.
+
+### The structure of the Stack
+
+The Stack follows a Last-in-first-out (LIFO) principle, meaning that the last item added to the stack will be the first one to be removed. When a function is called, its added to the stack; and when it completes, its removed. This order keeps the data super compact and contiguous in memory, making it fast to allocate and deallocate space without having to rearrange other data. However the stack does have limitations, the biggest one being that its limited in size. If there are too many nested function calls than a stack overflow can easily occur and cause the program to crash.
+
+This limited size of the stack is because the compiler allocates a fixed size on the memory for the program during compilation time, so we can avoid a system call and its overhead during run time. The size of the stack and its very predictable memory layout allows all the data on the stack to be super compact so that all the data is in a contiguous chunk. This is a big advantage, because not only does this avoid external fragmentation, but it also makes it super cache friendly.
+
+### Cache Friendliness
+
+Modern day CPU's rely heavily on the cache to boost performance. Since the cache is directly on the CPU, its super fast, however, it is also very limited in size because of this.
+
+Even though the cache is small in size, its very powerful. Since the stack stores data contiguously in memory, its very cache friendly and increases the chance of cache hits. Compact data is good for the cache because when a memory address is accessed, the OS grabs and loads not only the memory address needed but also nearby addresses surrounding it into the cache. This concept is called spactial locality, and modern day systems rely heavily on spatial locality to increase efficieny of programs. Cache hits are a norm in most modern day applications, so we should try our best to keep all our data as compact as possible and adhere to programming styles that will take advantage of the cache. We now understand why the stack is so efficient, its predictable, simple, and keeps our data super compact allowing it to take full advantage of our cache.
+
+The Stack is an essential memory area and has great benefits when we use it properly. However it does come with its own downsides. The stack is not only limited in size, it also very restrictive and does not allow us to have data structures whoms size can not dynamically change.
+
+## The necessity of the Heap
+
+The heap is a user managed memory region where dynamic memory allocation happens, allowing programs to request memory at runtime. Unlike the stack, which has a fixed size, the heap can grow and shrink as needed, making it invaluable for cases where memory requirements change frequently or for the data to persist its function calls it was created in. However, this flexibility of the heap also comes with a heavy cost.
+
+### System Calls and their Overhead
+
+When a program creates a request to allocate memory on the heap, it must _often_ request it from the operating system (OS) through a system call. System calls let programs execute privileged instructions that require interaction with the hardware in order to be completed. The OS basically acts as an intermediary between the program and the hardware. However, the OS jumping in to execute some privileged instructions is really expensive. Heres why:
+
+1. **Context switch**: Whena system call is made, the OS pauses the current program, saves its state, and takes over the CPU to complete the privileged instructions.
+2. **Execution of privileged instructions**: The OS performs instructions that are normal programs are not allowed to do for security reasons, such as managing memory locations
+3. **A return Context Switch**: After handling the request, another context switch to return control to the progam(that invoked the OS) is made.
+
+These steps are what craete the massive overhead that comes with trying to do system calls. This means that theres quite a bit of latency and we can see the siginificant reason for why heap allocation is slower.
+
+Any system call comes with a large overhead and we should avoid making them unless its necessary or the advantages of using the heap outweigh not using it.
+
+### Fragmentation and Dynamic allocation
+
+There is another siginicant drawback to allocating memory on the heap. The heaps flexible memory comes with the risk of fragmentation. As a memory is allocated and freed, small and non-contiguous "holes" can form between allocated memory blocks, and this is known as **External Fragmentation**. External framentation is never good as its basically useful memory being wasted and causing the data on the heap to not be compact.
+
+When we request memory from the OS, we dont get exactly the amount we need but rather a chunk of memory. This is smart because if we need to store more data on the heap we might not need to make a system call as there may be enough contiguous space already on the chunk we got the first time. Theres no way to completely rid ourseleves of this drawback but there are ways of minimizing external fragmentation, and these common strategies include:
+
+- **First Fit**: fill the first available memory hole big enough for the data.
+- **Best Fit**: Find the smallest possible hole to minimize wasted space.
+- **Worst Fit**: finds the largest availible hole, which might reduce fragmentation over time.
+
+Neither one of the strategies solves the problem of fragmentation but they can minimize them, some better than others but at the cost of speed.
+
+To understand one of the reasons why fragmentation cannot be avoided, we will also dive into how poor heap management can lead to poor performance in programs.
+
+## Python Lists Under the hood
+
+Unlike statically typed languages like C, where arrays hold blocks of data in memory, Python lists are actually just an **array of pointers**. Each item in a python list is a pointer to an object stored somewhere in memory, which means:
+
+- The list itself holds references to data, not the data itself.
+- Each list item points to an individual object node representing the actual value.
+
+```c
+typedef struct {
+    Py_ssize_t allocated; // represents number of slots in the ob_item array
+    PyObject *ob_item[];  // array of pointers of type PyObjects
+} _PyListArray;
+```
+
+Looking at the python source code, i found the out that the ob_item is a list of pointers that point to PyObjects which basically hold the actual values in the list. This pointer-based structure is what gives python lists their flexibility as items can be of different types and sizes. However, from what we have learned so far, we know that this has a major downside as it will cause external fragmentation since objects can be scattered across memory.
+
+### Cache inefficeny and Python Lists
+
+<div style={{ display: "flex", justifyContent: "center" }}>
+  <img src="/pyArr.png" alt="Description" style={{ width: "450px" }} />
+</div>
+Since object nodes can be scattered across memory, accessing list items might take
+you to completely different areas in the ram, from 1 end to the other. This is terribly
+hurtful to the cache efficiecny. Modern CPUs use cache to speed up memory access,
+however, python lists donte benefit much from the cache due to their scattered structure.
+Heres a step by step of why:
+
+- When the CPU loads a list item from memory, its only pulling in the pointer (along with the surrounding pointers) that points to the value, not the actual value which lies elsewhere in memory.
+- Each pointer points to a likely non-contiguous location in memory causing additional memory lookups.
+
+Frequent cache misses occur because each lookup may involve loading a new memory page, leading to slower performance for operations that iterate over lists or access elements frequently.
+
+Even if by some “magic” we managed to store all the list items compactly in memory (with contiguous pointers and contiguous values), the underlying issue remains: lists are inherently dynamic. Python provides operations like pop and remove, which can delete elements from any position in the list, leading to potential internal fragmentation. Over time, deleted items create gaps in memory and now you again have external fragmentation.
+
+## Conclusion
+
+Better memory management means understanding the unique roles of the stack, heap, and cache. The stack is fast and predictable, ideal for short-lived, simple data, but limited in size. The heap offers flexibility for dynamic data, though it’s slower and prone to fragmentation. Meanwhile, the cache boosts performance by storing frequently accessed data close to the CPU, relying on compact, contiguous memory access.
+
+Python lists highlight the heap’s trade-offs and they’re flexible but inherently cache-inefficient due to their scattered pointer-based structure, which also makes them prone to fragmentation.
+
+Informed memory management lets us balance speed and flexibility, ultimately leading to more efficient and robust programs.<hr />
