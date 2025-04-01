@@ -163,9 +163,12 @@ export default function Experience() {
         <div className="flex flex-col items-center mt-8 mb-12">
           <h2 className="text-2xl font-bold mb-4">Technologies & Languages</h2>
           <div
-            className="bg-red-100 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-8 gap-7 mb-8 overflow-y-auto border-4 border-red-100 rounded-lg"
+            className="bg-red-100 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-8 gap-7 mb-8 overflow-y-auto border-4 border-red-100 rounded-lg relative"
             style={{ maxHeight: "260px" }}
           >
+            <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-red-100 to-transparent pointer-events-none z-10"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-red-100 to-transparent pointer-events-none z-10"></div>
+
             <div className="flex flex-col items-center transition-transform transform hover:scale-110 hover:text-red-500">
               <DiJava size={70} title="Java" />
               <span className="mt-2 text-sm ">Java</span>
@@ -287,6 +290,9 @@ export default function Experience() {
               <span className="mt-2 text-sm">Rider</span>
             </div>
           </div>
+          <p className="text-sm text-gray-600 italic -mt-6 mb-4">
+            ↑ Scroll to see more technologies ↑
+          </p>
         </div>
         <div className="flex flex-col items-center mt-8 mb-12">
           <h2 className="text-2xl font-bold mb-4">Certificates</h2>
