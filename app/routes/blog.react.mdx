@@ -1,0 +1,89 @@
+---
+title: "React Dissected"
+date: "2025-02-1"
+description: "A deep dive into how react works under the hood"
+---
+
+import { useMDXComponents } from "@mdx-js/react";
+
+{frontmatter.date}
+
+# {frontmatter.title}
+
+React is a very common library thats used for building dynamic user interfaces, but how does it actually work? We'll first take a look at the DOM and then learn how we can utilize the same knowledge to build better applications with React.
+
+## So what is the DOM anyway?
+
+The Document Object Model (DOM) is basically a blueprint of your HTML that the browser turns into a tree of objects. If you try to visualize how you HTML is structured it looks like a family tree, divs inside sections and p's tucked into other tags. HTML itself is static but javascript is able to manipulate it using the DOM API.
+
+The DOM API is very a very powerful tool as it allows us to make dynamic UI's however there is a catch as messing around with the DOM isn't free. Finding an element (like with document.querySelector) is quick and tweaking it is no big deal. But once you do, the browser has to re-render everything and repaint the screen with the new layouts, and thats where it gets heavy. If you do it too often, your app can start feeling sluggish especially if its big.
+
+## The Virtual DOM
+
+React doesn't just hammer away at the actual DOM the way raw Javascript can. Instead, its got something called the Virtual DOM, a light weight, in memory copy of the UI made of javascript objects. This is far more efficient since manipulating things in-memory is a lot faster than manipulating the actual DOM.
+
+Heres how React works step by step:
+
+1. Starting point: React creates a Virtual DOM based on your compoennts and syncs it to the real DOM.
+2. Something Changes: Suppose a button click updates your state. React builds a fresh Virtual DOM with the new changes.
+3. Identify the changes: React compares the old virtual DOM with the new one via some diffing algorithm.
+4. Update real DOM: React then updates parts of the real DOM so the users can see the new changes.
+
+This whole process is called reconcilliation, and its why React doesn't waste time redrawing things that haven't changed. But on top of all this, React does something called batch-updates. If a bunch of changes pile up fast, react applies them all in one go, which is a nice little performance boost.
+
+## Why does this matter?
+
+Understanding how the DOM works and how it displays new changes on the screen can help you find ways to enhance the perfomance of your application.
+There are 3 main reasons that cause React Components to re-render:
+
+1. Any state changes in the component
+2. Any updates to the components props such as new props rolling in
+3. A parent re-renders, the child component will re-render by default
+
+The Virtual DOM keeps things efficient, but if your components are re-rendering unnecessarily then you're losing performance for no reaason. However, to combat this issue React has given us a few tools to help us out.
+
+### React Memo
+
+Normally, if a parent component re-remders, the child components also get re-rendered, even if nothings changed for them. React.Memo solves this problem. It does a quick shallow check on the props, and if they're the same, the child component doesn't re-render
+
+```jsx
+const KidComponent = React.memo((props) => {
+  return <div>{props.value}</div>;
+});
+```
+
+Parent component might re-render, but if value hasn't changed, the kidComponent skips the re-render. Easy fix!
+
+### UseCallback
+
+When a component re-renders, its functions get recreated. New render, new function reference. If that function's a prop for a child component, React sees it as a new prop and re-renders the kid, even if the function does the exact same thing.
+
+The UseCallback hook solves this problem. It memoizes the function so it doesn't change unless it needs to. Heres a small example:
+
+```jsx
+import { useCallback } from "react";
+
+function ParentComponent() {
+  const handleClick = useCallback(() => {
+    console.log("Clicked!");
+  }, []); // empty dependency array = same function every time
+
+  return <KidComponent onClick={handleClick} />;
+}
+```
+
+Now handleClick stays the same across re-renders, and kidComponent doesn't get dragged into pointless re-renders.
+
+React Also has another hook called Usememo, that can cache values instead, this is helpful to avoid complex and expensive recalculations.
+
+## Wrapping it up
+
+React's virtual DOM and reconcilliation make updating the UI feel effortless by not doing uncessary DOM work. But to keep things faast and snappy:
+
+- Use React.memo on kid components that don't need to re-render just because the parent did
+- Use useCallback to lock down functions and stop props from triggering unnecessary re-renders
+- useMemo to cache values that are expensive to calculate
+
+### A warning
+
+Memoizing everything is not the approach you should take either. Caching is basically a memory-for-speed trade-off, meaning its best for heavier components where re-renders hurt more. You have to be careful as to when and which things in your application to memoize so that your application does not hog all the users memory.

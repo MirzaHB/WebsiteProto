@@ -3,7 +3,16 @@ import { useLoaderData } from "@remix-run/react";
 import path from "path";
 import fs from "fs";
 import Typewriter from "typewriter-effect";
-import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaEnvelope,
+  FaLaptopCode,
+  FaGraduationCap,
+  FaCode,
+  FaServer,
+  FaBookOpen,
+} from "react-icons/fa";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { useState } from "react";
 
@@ -19,11 +28,37 @@ interface Certificate {
   imagePath: string;
 }
 
+interface AboutMeSection {
+  title: string;
+  icon: string;
+  iconColor: string;
+  content: string;
+}
+
 interface AboutMeData {
   aboutMe: string;
   picturePath: string;
   certificates: Certificate[];
+  aboutMeSections: AboutMeSection[];
 }
+
+const getIconComponent = (
+  iconName: string,
+  iconColor: string,
+  size: number
+) => {
+  const iconMap: Record<string, React.ReactNode> = {
+    FaBookOpen: <FaBookOpen className={`text-${iconColor}`} size={size} />,
+    FaCode: <FaCode className={`text-${iconColor}`} size={size} />,
+    FaServer: <FaServer className={`text-${iconColor}`} size={size} />,
+    FaGraduationCap: (
+      <FaGraduationCap className={`text-${iconColor}`} size={size} />
+    ),
+    FaLaptopCode: <FaLaptopCode className={`text-${iconColor}`} size={size} />,
+  };
+
+  return iconMap[iconName] || null;
+};
 
 export default function About() {
   const data = useLoaderData<AboutMeData>();
@@ -114,8 +149,45 @@ export default function About() {
       <div className="w-full max-w-5xl border-t border-red-100 mt-8" />
 
       <div className="w-full max-w-5xl p-4 mt-8">
-        <h2 className="text-2xl font-bold mb-4">About Me</h2>
-        <p className="text-xl text-gray-700">{data.aboutMe}</p>
+        <h2 className="text-3xl font-bold mb-8 text-center">About Me</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {data.aboutMeSections.map((section, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-lg shadow-md p-6 transition-transform duration-300 hover:transform hover:scale-105 border-l-4 hover:border-blue-500"
+            >
+              <div className="flex items-center mb-4">
+                {getIconComponent(section.icon, section.iconColor, 30)}
+                <h3 className="text-xl font-semibold ml-3">{section.title}</h3>
+              </div>
+              <p className="text-gray-700">{section.content}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="w-full max-w-5xl p-4 mt-12 mb-8">
+        <h2 className="text-3xl font-bold mb-8 text-center">My Blog</h2>
+        <div className="flex justify-center">
+          <a
+            href="/blogs"
+            className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500 transition-all duration-300 hover:shadow-xl hover:scale-105 w-full max-w-2xl"
+          >
+            <div className="text-center">
+              <h3 className="text-2xl font-semibold mb-4">
+                Check Out My Latest Thoughts
+              </h3>
+              <p className="text-gray-700 mb-4">
+                Explore my articles on software development, technology, and
+                more.
+              </p>
+              <div className="inline-block bg-blue-600 text-white py-2 px-6 rounded-full font-medium hover:bg-blue-700">
+                View Blog Posts
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   );

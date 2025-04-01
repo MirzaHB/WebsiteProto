@@ -1,5 +1,5 @@
 {
-  "aboutMe": "I’m endlessly curious about how things work at their core, and I love figuring out the smallest details that make everything tick. Whether it’s low-level programming or the systems that power modern technology, understanding the why and how behind it all fascinates me. Low-level programming, in particular, has had a massive impact on our world, laying the foundation for operating systems and modern languages, and I find it empowering to know how it all works. But my passion doesn’t stop there—I’m also deeply interested in full-stack development, where I get to build and host web applications that people can interact with. The thrill of creating something from scratch, both on the frontend and backend, and seeing it live on the web keeps me motivated. I also love learning on my own in my free time, constantly experimenting with new technologies and frameworks to push my skills further. Whether it’s building things or figuring out how they work, software engineering allows me to combine creativity and logic, and that’s what keeps me excited about the field every day.",
+  "aboutMe": "I'm endlessly curious about how things work at their core, and I love figuring out the smallest details that make everything tick. Whether it's low-level programming or the systems that power modern technology, understanding the why and how behind it all fascinates me. Low-level programming, in particular, has had a massive impact on our world, laying the foundation for operating systems and modern languages, and I find it empowering to know how it all works. But my passion doesn't stop there—I'm also deeply interested in full-stack development, where I get to build and host web applications that people can interact with. The thrill of creating something from scratch, both on the frontend and backend, and seeing it live on the web keeps me motivated. I also love learning on my own in my free time, constantly experimenting with new technologies and frameworks to push my skills further. Whether it's building things or figuring out how they work, software engineering allows me to combine creativity and logic, and that's what keeps me excited about the field every day.",
   "picturePath": "/me.png",
   "certificates": [
     {
@@ -9,6 +9,38 @@
     {
       "awardName": "Web Developer Bootcamp",
       "imagePath": "/webdevCert.png"
+    }
+  ],
+  "aboutMeSections": [
+    {
+      "title": "Curious Thinker",
+      "icon": "FaBookOpen",
+      "iconColor": "blue-500",
+      "content": "I'm endlessly curious about how things work at their core, diving into the smallest details that make everything tick."
+    },
+    {
+      "title": "Low-Level Enthusiast",
+      "icon": "FaCode",
+      "iconColor": "green-500",
+      "content": "Low-level programming fascinates me - understanding the foundation of operating systems and modern languages empowers my coding approach."
+    },
+    {
+      "title": "Full-Stack Developer",
+      "icon": "FaServer",
+      "iconColor": "purple-500",
+      "content": "Building and hosting web applications from scratch, both frontend and backend, gives me the thrill of creating something people can interact with."
+    },
+    {
+      "title": "Continuous Learner",
+      "icon": "FaGraduationCap",
+      "iconColor": "red-500",
+      "content": "I constantly experiment with new technologies and frameworks in my free time, pushing my skills further through self-directed learning."
+    },
+    {
+      "title": "Creative Problem Solver",
+      "icon": "FaLaptopCode",
+      "iconColor": "yellow-500",
+      "content": "Software engineering allows me to combine creativity and logic, which keeps me excited about the field every day."
     }
   ]
 }
